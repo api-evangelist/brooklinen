@@ -1,23 +1,162 @@
 aid: brooklinen
 name: Brooklinen
-description: 'Brooklinen is a company surfaced via the API Evangelist harvest backlog (source: secondary-market)
-  and added to the network as a stub for full-pipeline profiling.'
+description: >-
+  Brooklinen is a direct-to-consumer home essentials brand founded in Brooklyn, New York in 2014 by Rich and
+  Vicki Fulop, selling sheets, duvet covers, comforters, pillows, towels, robes and loungewear direct from the
+  mill to the customer. Brooklinen publishes no traditional developer API program, but its storefront runs on
+  Shopify and exposes a substantial machine-readable agent surface: an agent instruction document at
+  /agents.md (mirrored at /llms.txt), a Universal Commerce Protocol (UCP) merchant profile at
+  /.well-known/ucp declaring protocol versions 2026-04-08 and 2026-01-23, a live UCP/MCP JSON-RPC endpoint at
+  /api/ucp/mcp for agent-driven catalog search, cart, checkout and order operations, OAuth 2.0 / OIDC
+  customer-account authorization metadata at /.well-known/oauth-authorization-server and
+  /.well-known/oauth-protected-resource, and the read-only Shopify storefront JSON endpoints for products,
+  collections, search suggestions and cart. Checkout explicitly requires contemporaneous human buyer approval.
 url: https://raw.githubusercontent.com/api-evangelist/brooklinen/refs/heads/main/apis.yml
+image: https://cdn.shopify.com/s/files/1/0951/7126/files/0126_Shopify_Social_Image.jpg?v=1765839763
 x-type: company
 x-source: harvest:secondary-market
-x-tier: stub
-x-tier-reason: harvest
 specificationVersion: '0.20'
 created: '2026-08-02'
 modified: '2026-08-02'
 tags:
-- Company
-apis: []
+- ecommerce
+- retail
+- direct-to-consumer
+- home-goods
+- bedding
+- shopify
+- agentic-commerce
+- universal-commerce-protocol
+- mcp
+- agent-native
+- catalog
+- checkout
+apis:
+- name: Brooklinen UCP / MCP Agentic Commerce API
+  description: >-
+    Live Universal Commerce Protocol (UCP) endpoint exposed over MCP JSON-RPC at
+    https://www.brooklinen.com/api/ucp/mcp, advertised by the store's own /agents.md, /robots.txt and
+    /.well-known/ucp discovery profile. Provides agent-driven catalog search and lookup, cart management,
+    checkout creation/update/completion and order retrieval against the Brooklinen storefront. Requires a
+    resolvable UCP agent profile (meta.ucp-agent.profile / UCP-Agent header) — anonymous tools/list returns
+    JSON-RPC error -32001 invalid_profile_url. Payment completion requires explicit human buyer approval.
+  humanURL: https://www.brooklinen.com/agents.md
+  baseURL: https://www.brooklinen.com/api/ucp/mcp
+  tags:
+  - agentic-commerce
+  - universal-commerce-protocol
+  - mcp
+  - agent-native
+  - checkout
+  - catalog
+  properties:
+  - type: MCPServer
+    url: mcp/brooklinen-mcp.yml
+  - type: MCP
+    url: https://www.brooklinen.com/api/ucp/mcp
+  - type: ToolCrosswalk
+    url: mcp/brooklinen-tool-crosswalk.yml
+  - type: Documentation
+    url: https://www.brooklinen.com/agents.md
+  - type: WellKnown
+    url: well-known/brooklinen-ucp.json
+  - type: Authentication
+    url: authentication/brooklinen-authentication.yml
+  - type: OAuthScopes
+    url: scopes/brooklinen-scopes.yml
+  - type: Idempotency
+    url: conventions/brooklinen-conventions.yml
+  - type: ErrorCatalog
+    url: errors/brooklinen-problem-types.yml
+- name: Brooklinen Shopify Storefront JSON API
+  description: >-
+    Read-only, unauthenticated JSON endpoints over the Brooklinen Shopify storefront, documented by the store
+    itself in /agents.md for agents that only need to read store data without transacting. Covers the full
+    product list, per-product detail, per-collection product lists, predictive search suggestions and the
+    session cart. Every operation captured here was probed live and returned HTTP 200.
+  humanURL: https://www.brooklinen.com/agents.md
+  baseURL: https://www.brooklinen.com/
+  tags:
+  - ecommerce
+  - catalog
+  - shopify
+  - retail
+  - product-data
+  properties:
+  - type: OpenAPI
+    url: openapi/brooklinen-storefront-openapi.yml
+  - type: Overlay
+    url: overlays/brooklinen-storefront-overlay.yaml
+  - type: Documentation
+    url: https://www.brooklinen.com/agents.md
+  - type: DataModel
+    url: data-model/brooklinen-data-model.yml
+  - type: ErrorCatalog
+    url: errors/brooklinen-problem-types.yml
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: DomainSecurity
+  url: security/brooklinen-domain-security.yml
 - type: Website
+  url: https://www.brooklinen.com/
+- type: Documentation
+  url: https://www.brooklinen.com/agents.md
+- type: APIReference
+  url: https://www.brooklinen.com/agents.md
+- type: GettingStarted
+  url: https://www.brooklinen.com/agents.md
+- type: Support
+  url: https://www.brooklinen.com/pages/contact
+- type: HelpCenter
+  url: https://www.brooklinen.com/pages/faq
+- type: Blog
+  url: https://www.brooklinen.com/blogs/brookliving
+- type: GitHubOrganization
+  url: https://github.com/Brooklinen
+- type: SignUp
+  url: https://www.brooklinen.com/pages/sign-up
+- type: Login
+  url: https://www.brooklinen.com/account/login
+- type: TermsOfService
+  url: https://www.brooklinen.com/policies/terms-of-service
+- type: PrivacyPolicy
+  url: https://www.brooklinen.com/policies/privacy-policy
+- type: MCPServer
+  url: mcp/brooklinen-mcp.yml
+- type: ToolCrosswalk
+  url: mcp/brooklinen-tool-crosswalk.yml
+- type: LLMsTxt
+  url: llms/brooklinen-llms.txt
+- type: WellKnown
+  url: well-known/brooklinen-well-known.yml
+- type: Authentication
+  url: authentication/brooklinen-authentication.yml
+- type: OAuthScopes
+  url: scopes/brooklinen-scopes.yml
+- type: Conventions
+  url: conventions/brooklinen-conventions.yml
+- type: Idempotency
+  url: conventions/brooklinen-conventions.yml
+- type: Lifecycle
+  url: lifecycle/brooklinen-lifecycle.yml
+- type: Conformance
+  url: conformance/brooklinen-conformance.yml
+- type: ErrorCatalog
+  url: errors/brooklinen-problem-types.yml
+- type: DataModel
+  url: data-model/brooklinen-data-model.yml
+- type: AgentSkill
+  url: skills/_index.yml
+- type: Overlay
+  url: overlays/brooklinen-storefront-overlay.yaml
+- type: SecondaryMarketListing
   url: https://forgeglobal.com/brooklinen_stock/
+x-enrichment:
+  date: '2026-08-02'
+  status: enriched
+  artifacts_added: 22
+  pass: local-v1

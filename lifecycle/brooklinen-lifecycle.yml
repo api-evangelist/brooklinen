@@ -1,0 +1,60 @@
+generated: '2026-08-02'
+method: probed
+source:
+- https://www.brooklinen.com/.well-known/ucp
+- https://www.brooklinen.com/agents.md
+versioning:
+  storefront:
+    scheme: unversioned
+    current: null
+    note: The Shopify storefront JSON endpoints carry no version path segment or version header.
+  ucp:
+    scheme: dated-protocol-version
+    current: '2026-04-08'
+    supported:
+    - version: '2026-04-08'
+      status: latest-stable
+      profile: https://brooklinen2.myshopify.com/.well-known/ucp/2026-04-08
+    - version: '2026-01-23'
+      status: supported
+      profile: https://brooklinen2.myshopify.com/.well-known/ucp/2026-01-23
+    negotiation: >-
+      An agent reads /.well-known/ucp, picks a version from `supported_versions`, and fetches that version's
+      profile. Individual capabilities declare a `requires.protocol.min` floor — fulfillment, discount and
+      dev.shopify.catalog all require at least 2026-04-08.
+    docs: https://ucp.dev
+deprecation:
+  policy_url: null
+  policy_published: false
+  sunset_header: false
+  note: >-
+    No deprecation policy, sunset schedule or RFC 8594 Sunset/Deprecation header support was found. The only
+    observable lifecycle signal is that an older UCP protocol version (2026-01-23) remains listed alongside
+    the current one, with no stated end date. No `Deprecation` pointer is emitted.
+sla:
+  url: null
+  uptime_target: null
+  note: No SLA is published; this is a consumer retail storefront, not a commercial API program.
+status_page:
+  url: null
+  note: >-
+    Brooklinen publishes no status page. The underlying platform status page (status.shopify.com) belongs to
+    Shopify, not to Brooklinen, so no `StatusPage` pointer is emitted.
+changelog:
+  url: null
+  note: >-
+    No dated changelog is published for the agent surface. /sitemap_agentic_discovery.xml declares
+    /agents.md as changefreq weekly, which is the only published change signal.
+deprecated_operations: []
+support:
+  contact: https://www.brooklinen.com/pages/contact
+  faq: https://www.brooklinen.com/pages/faq
+  returns: https://www.brooklinen.com/pages/returns
+  warranty: https://www.brooklinen.com/pages/our-product-warranty
+  order_status: https://www.brooklinen.com/pages/order-status
+x-evidence:
+  fetched: '2026-08-02'
+  probes:
+  - {url: 'https://www.brooklinen.com/.well-known/ucp', http_status: 200}
+  - {url: 'https://www.brooklinen.com/agents.md', http_status: 200}
+  - {url: 'https://www.brooklinen.com/sitemap_agentic_discovery.xml', http_status: 200}

@@ -1,0 +1,114 @@
+generated: '2026-08-02'
+method: searched
+source:
+- https://www.brooklinen.com/agents.md
+- https://www.brooklinen.com/robots.txt
+- https://www.brooklinen.com/.well-known/ucp
+- https://ucp.dev/2026-04-08/services/shopping/mcp.openrpc.json
+summary: >-
+  Cross-cutting request/response semantics for Brooklinen's two agent-facing surfaces: the anonymous
+  read-only Shopify storefront JSON endpoints, and the UCP/MCP JSON-RPC endpoint at /api/ucp/mcp.
+authentication:
+  storefront: none
+  mcp: UCP agent profile (meta.ucp-agent.profile -> UCP-Agent header), required
+  customer: OAuth 2.0 authorization code + PKCE (S256) against the Shopify customer account issuer
+  detail: authentication/brooklinen-authentication.yml
+idempotency:
+  supported: true
+  mechanism: request-metadata property mapped to an HTTP header
+  property: meta.idempotency-key
+  header: Idempotency-Key
+  format: uuid
+  scope: UCP/MCP endpoint (https://www.brooklinen.com/api/ucp/mcp)
+  required: false
+  purpose: Retry safety for cart, checkout and order operations.
+  retention: not published
+  evidence: >-
+    `meta.idempotency-key` is defined in the UCP shopping schema at
+    https://ucp.dev/2026-04-08/services/shopping/mcp.openrpc.json — "Unique key for retry safety. Maps to
+    HTTP Idempotency-Key header." — which is the exact schema Brooklinen's own /.well-known/ucp names for its
+    dev.ucp.shopping MCP transport at version 2026-04-08.
+  note: >-
+    Not applicable to the read-only storefront JSON surface, which is all safe GETs.
+pagination:
+  storefront:
+    style: page-number
+    params: [limit, page]
+    applies_to: [listProducts, listCollectionProducts]
+    response_fields: [products]
+    note: >-
+      No cursor, no total count and no link headers are returned; a client pages until an empty `products`
+      array. Documented in /agents.md as `GET /collections/{handle}/products.json`.
+  mcp:
+    style: not published
+    note: search_catalog and lookup_catalog paging semantics resolve through the ucp.dev catalog capability schemas.
+field_expansion:
+  supported: false
+  note: Storefront JSON responses are fixed-shape; there is no sparse-fieldset or expansion parameter.
+metadata:
+  storefront: Products carry free-form `tags`, `vendor` and `product_type`.
+  mcp: Requests carry a `meta` object (ucp-agent, idempotency-key) and a buyer `context` object.
+request_tracing:
+  request_id_header: not published
+  note: No request-id or correlation header is documented. MCP calls carry the JSON-RPC `id` for
+    request/response correlation within a single call.
+versioning:
+  storefront:
+    scheme: unversioned
+    note: The Shopify storefront JSON endpoints carry no version segment or header.
+  mcp:
+    scheme: dated protocol version
+    current: '2026-04-08'
+    supported: ['2026-04-08', '2026-01-23']
+    negotiation: >-
+      Versions are declared in /.well-known/ucp under `supported_versions`, each resolving to a
+      version-specific profile document. Capabilities carry a `requires.protocol.min` floor.
+    detail: lifecycle/brooklinen-lifecycle.yml
+error_envelope:
+  storefront:
+    format: none
+    note: >-
+      Errors are HTTP status codes with HTML or empty bodies; there is no structured error envelope and no
+      RFC 9457 problem+json.
+  mcp:
+    format: JSON-RPC 2.0 error object
+    fields: [code, message, data.code, data.content, data.continue_url]
+    business_errors: >-
+      UCP business-logic failures use the shopping error response shape (`ucp`, `messages[]`, optional
+      `continue_url`) defined at
+      https://ucp.dev/2026-04-08/schemas/shopping/types/error_response.json.
+    detail: errors/brooklinen-problem-types.yml
+rate_limiting:
+  documented: true
+  signal: HTTP 429
+  headers: not published
+  policy: >-
+    /agents.md: "Respect rate limits. The MCP endpoint is rate-limited per IP. Back off on 429 responses."
+    No quota values, reset headers or retry-after guidance are published.
+buyer_context:
+  documented: true
+  fields: [context.address_country, context.currency]
+  policy: >-
+    /agents.md instructs agents to pass buyer country and currency for accurate pricing and availability.
+human_in_the_loop:
+  required: true
+  policy: >-
+    Checkout, payment and order placement must not be completed automatically. Both /agents.md and
+    /robots.txt forbid scripted form fills, browser automation and end-to-end agent flows that finalize
+    payment without an explicit, contemporaneous human approval step.
+agent_discovery:
+  robots_txt: https://www.brooklinen.com/robots.txt
+  agents_md: https://www.brooklinen.com/agents.md
+  llms_txt: https://www.brooklinen.com/llms.txt
+  agentic_sitemap: https://www.brooklinen.com/sitemap_agentic_discovery.xml
+  ucp_profile: https://www.brooklinen.com/.well-known/ucp
+  note: >-
+    robots.txt Allows crawling of public product, collection, page, blog and policy HTML, and Disallows
+    /cart/, /checkout, /checkouts/, /orders, /account, /admin and /services.
+cross_links:
+  errors: errors/brooklinen-problem-types.yml
+  lifecycle: lifecycle/brooklinen-lifecycle.yml
+  authentication: authentication/brooklinen-authentication.yml
+  scopes: scopes/brooklinen-scopes.yml
+  conformance: conformance/brooklinen-conformance.yml
+  mcp: mcp/brooklinen-mcp.yml

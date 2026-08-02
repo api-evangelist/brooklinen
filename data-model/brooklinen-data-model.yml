@@ -1,0 +1,138 @@
+generated: '2026-08-02'
+method: derived
+source:
+- openapi/brooklinen-storefront-openapi.yml
+- https://www.brooklinen.com/.well-known/ucp
+- https://ucp.dev/2026-04-08/services/shopping/mcp.openrpc.json
+summary: >-
+  Two projections of one commerce core. The storefront JSON surface exposes the catalog side (Product,
+  Variant, Image, Option, Collection) with relationships derived from id-reference fields observed in live
+  responses. The UCP/MCP surface exposes the transactional side (Cart, Checkout, Order, Fulfillment,
+  Discount) as negotiated capabilities whose payload schemas resolve to ucp.dev, not to Brooklinen.
+entities:
+- name: Product
+  surface: storefront
+  schema: openapi/brooklinen-storefront-openapi.yml#/components/schemas/Product
+  identifier: id
+  addressable_by: handle
+  fields_observed: [id, title, handle, body_html, published_at, created_at, updated_at, vendor, product_type, tags, variants, images, options]
+- name: Variant
+  surface: storefront
+  schema: openapi/brooklinen-storefront-openapi.yml#/components/schemas/Variant
+  identifier: id
+  fields_observed: [id, product_id, title, option1, option2, option3, sku, price, compare_at_price, available, requires_shipping, taxable, grams, position, featured_image, created_at, updated_at]
+- name: Image
+  surface: storefront
+  schema: openapi/brooklinen-storefront-openapi.yml#/components/schemas/Image
+  identifier: id
+  fields_observed: [id, product_id, variant_ids, src, width, height, position, created_at, updated_at]
+- name: Option
+  surface: storefront
+  schema: openapi/brooklinen-storefront-openapi.yml#/components/schemas/Option
+  fields_observed: [name, position, values]
+- name: Collection
+  surface: storefront
+  addressable_by: handle
+  note: >-
+    Addressable at /collections/{handle}/products.json. No standalone collection JSON document was probed;
+    the collection is observable only through the products it contains.
+- name: Cart
+  surface: both
+  storefront_schema: openapi/brooklinen-storefront-openapi.yml#/components/schemas/Cart
+  ucp_schema: https://ucp.dev/2026-04-08/schemas/shopping/cart.json
+  identifier: token (storefront) / id (UCP)
+  note: >-
+    The storefront /cart.js cart is session-cookie scoped and read-only; the UCP cart is agent-owned and
+    mutable. Different identity models — see mcp/brooklinen-tool-crosswalk.yml.
+- name: Checkout
+  surface: ucp
+  schema: https://ucp.dev/2026-04-08/schemas/shopping/checkout.json
+  identifier: id
+  note: Created, updated, completed or cancelled only through the UCP/MCP endpoint. Completion requires human buyer approval.
+- name: Order
+  surface: ucp
+  schema: https://ucp.dev/2026-04-08/schemas/shopping/order.json
+  identifier: id
+  note: Read-only via get_order. /orders is Disallowed in robots.txt.
+- name: Fulfillment
+  surface: ucp
+  schema: https://ucp.dev/2026-04-08/schemas/shopping/fulfillment.json
+  note: >-
+    Capability config on this store: allows_multi_destination.shipping = false; allows_method_combinations =
+    [[shipping]]. A single shipping destination per checkout.
+- name: Discount
+  surface: ucp
+  schema: https://ucp.dev/2026-04-08/schemas/shopping/discount.json
+  note: Extends cart and checkout; requires protocol >= 2026-04-08.
+- name: PaymentHandler
+  surface: ucp
+  note: Google Pay (gpay), Shopify card (shopify.card) and Shop Pay (shop_pay) are declared in /.well-known/ucp.
+relationships:
+- from: Product
+  to: Variant
+  type: has_many
+  via: variants[]
+  inverse_via: Variant.product_id
+  confidence: high
+  evidence: Observed in a live /products.json response.
+- from: Product
+  to: Image
+  type: has_many
+  via: images[]
+  inverse_via: Image.product_id
+  confidence: high
+  evidence: Observed in a live /products.json response.
+- from: Product
+  to: Option
+  type: has_many
+  via: options[]
+  confidence: high
+- from: Variant
+  to: Image
+  type: has_one
+  via: featured_image
+  confidence: high
+- from: Image
+  to: Variant
+  type: has_many
+  via: variant_ids[]
+  confidence: high
+  evidence: Image.variant_ids is an array of Variant.id values.
+- from: Collection
+  to: Product
+  type: has_many
+  via: /collections/{handle}/products.json
+  confidence: high
+- from: Cart
+  to: Variant
+  type: has_many
+  via: items[]
+  confidence: medium
+  evidence: >-
+    Probed cart was empty (item_count 0), so line-item shape was not observed; the relationship is implied
+    by the endpoint contract.
+- from: Checkout
+  to: Cart
+  type: belongs_to
+  via: UCP capability `extends`
+  confidence: high
+  evidence: dev.ucp.shopping.fulfillment and dev.ucp.shopping.discount both declare extends [checkout, cart].
+- from: Checkout
+  to: Order
+  type: has_one
+  via: complete_checkout
+  confidence: high
+- from: Checkout
+  to: Fulfillment
+  type: has_one
+  via: UCP capability `extends`
+  confidence: medium
+identifiers:
+  product_handle: URL slug, e.g. dreamweave-waffle-robe-last-call
+  shop_id: '9517126'
+  shopify_origin: brooklinen2.myshopify.com
+  gpay_merchant_id: '16708973830884969730'
+gaps:
+- Collection metadata (title, description, rules) has no probed JSON representation.
+- UCP cart/checkout/order payload shapes were not observed live — the MCP endpoint is agent-profile gated —
+  so those entities are catalogued by their referenced ucp.dev schema rather than by inspection.

@@ -1,0 +1,106 @@
+generated: '2026-08-02'
+method: derived
+source:
+- mcp/brooklinen-mcp.yml
+- mcp/brooklinen-ucp-shopping-mcp.openrpc.json
+- openapi/brooklinen-storefront-openapi.yml
+summary: >-
+  Brooklinen exposes two overlapping-but-non-identical surfaces over one commerce core: a read-only Shopify
+  storefront JSON surface (anonymous, probed live) and a transactional UCP/MCP surface (agent-profile gated).
+  They are not supersets of each other — the storefront surface can read the catalog but cannot transact, and
+  the MCP surface can transact but is unreachable without a published agent profile. This crosswalk binds each
+  MCP tool to the REST operation that backs it where one exists, and records the divergence where it does not.
+surfaces:
+  openapi:
+    file: openapi/brooklinen-storefront-openapi.yml
+    base: https://www.brooklinen.com
+    gated: false
+    note: >-
+      Generated from Brooklinen's own /agents.md endpoint list plus live probes; not a provider-published
+      spec. Read-only.
+  mcp:
+    url: https://www.brooklinen.com/api/ucp/mcp
+    gated: true
+    gate: 'UCP agent profile required (meta.ucp-agent.profile / UCP-Agent header); anonymous tools/list -> 422 / -32001'
+    schema: https://ucp.dev/2026-04-08/services/shopping/mcp.openrpc.json
+  graphql:
+    present: false
+    note: No public GraphQL surface was found on brooklinen.com.
+crosswalk:
+- tool: search_catalog
+  category: catalog
+  rest: [suggestSearch]
+  binding: rest
+  confidence: medium
+  note: >-
+    Both search the same product catalog, but they are different contracts: suggestSearch is Shopify's
+    predictive-search JSON endpoint, while search_catalog takes a UCP `catalog` request object with buyer
+    context (currency, country). Semantically equivalent, structurally different.
+- tool: lookup_catalog
+  category: catalog
+  rest: [getProduct, listProducts]
+  binding: rest
+  confidence: medium
+  note: >-
+    Batch lookup by identifier. The REST surface offers no batch form — an agent must fan out getProduct per
+    handle, or page listProducts. Note lookup_catalog keys on UCP product/variant identifiers while the REST
+    operation keys on the Shopify URL handle.
+- tool: get_product
+  category: catalog
+  rest: [getProduct]
+  binding: rest
+  confidence: high
+  note: Direct equivalent; getProduct addresses the product by handle and returns the same underlying product record.
+- tool: get_cart
+  category: cart
+  rest: [getCart]
+  binding: rest
+  confidence: low
+  note: >-
+    Both read a cart, but the identity model differs: getCart (/cart.js) reads the cart bound to the caller's
+    browser session cookie, whereas the MCP get_cart reads an agent-owned cart by its UCP id. Not
+    interchangeable.
+mcp_only:
+- tool: create_cart
+  reason: No public REST operation creates a cart; the storefront /cart/add.js form endpoints are session/CSRF bound and not part of the documented read-only surface.
+- tool: update_cart
+  reason: Cart mutation is not exposed on the documented read-only storefront surface.
+- tool: cancel_cart
+  reason: Cart mutation is not exposed on the documented read-only storefront surface.
+- tool: create_checkout
+  reason: Checkout is transactional and exists only on the UCP surface; /checkout is Disallowed in robots.txt.
+- tool: get_checkout
+  reason: Checkout state is UCP-only.
+- tool: update_checkout
+  reason: Checkout mutation (shipping address, fulfillment method, discounts) is UCP-only.
+- tool: complete_checkout
+  reason: Order placement is UCP-only and additionally requires contemporaneous human buyer approval of payment.
+- tool: cancel_checkout
+  reason: Checkout cancellation is UCP-only.
+- tool: get_order
+  reason: Orders are Disallowed in robots.txt and have no anonymous REST representation; UCP-only.
+rest_only:
+- capability: catalog-bulk-read
+  operations: [listProducts, listCollectionProducts]
+  note: >-
+    Unpaginated bulk enumeration of the catalog and of merchandising collections. UCP exposes search and
+    identifier lookup, not collection-scoped enumeration, so an agent building a full local mirror of the
+    catalog must use the REST surface.
+- capability: discovery
+  operations: [getAgentInstructions, getUcpProfile, getSitemapIndex]
+  note: Discovery documents. Necessarily anonymous — they are how an agent finds the MCP endpoint in the first place.
+coverage:
+  tools_named: 13
+  tools_bound_to_rest: 4
+  mcp_only: 9
+  rest_operations_total: 8
+  rest_operations_with_a_tool: 4
+  rest_only_operations: 5
+notes:
+- No tool inputSchema was harvested live — the MCP endpoint refused anonymous tools/list. Tool names, params
+  and descriptions come from the UCP shopping OpenRPC document that Brooklinen's own /.well-known/ucp names
+  as the schema for its MCP transport, so they are real, but per-tool payload shapes resolve through
+  ucp.dev capability schemas rather than through anything Brooklinen serves.
+- >-
+  Confidence is set conservatively for exactly that reason — bindings are matched by name and semantics, not
+  by comparing two schemas we hold.

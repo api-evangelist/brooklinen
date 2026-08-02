@@ -1,0 +1,85 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for the Brooklinen Shopify Storefront JSON API
+  version: 1.0.0
+extends: openapi/brooklinen-storefront-openapi.yml
+x-generated: '2026-08-02'
+x-method: generated
+x-source: https://www.brooklinen.com/agents.md
+actions:
+- target: $.info
+  description: Record provenance and the API Evangelist artifact set on the spec root.
+  update:
+    x-apievangelist-provenance:
+      method: generated
+      generated: '2026-08-02'
+      source: https://www.brooklinen.com/agents.md
+      note: >-
+        Brooklinen publishes no OpenAPI. This document was generated from the endpoint list Brooklinen
+        publishes in /agents.md plus live probes of each endpoint on 2026-08-02.
+    x-apievangelist-artifacts:
+      conventions: conventions/brooklinen-conventions.yml
+      errors: errors/brooklinen-problem-types.yml
+      authentication: authentication/brooklinen-authentication.yml
+      lifecycle: lifecycle/brooklinen-lifecycle.yml
+      data_model: data-model/brooklinen-data-model.yml
+      conformance: conformance/brooklinen-conformance.yml
+      mcp: mcp/brooklinen-mcp.yml
+      tool_crosswalk: mcp/brooklinen-tool-crosswalk.yml
+      skills: skills/_index.yml
+- target: $.info
+  description: Note the sibling transactional surface, which is not described by this document.
+  update:
+    x-apievangelist-companion-surface:
+      protocol: Universal Commerce Protocol over MCP
+      endpoint: https://www.brooklinen.com/api/ucp/mcp
+      discovery: https://www.brooklinen.com/.well-known/ucp
+      gated: true
+      gate: UCP agent profile (meta.ucp-agent.profile / UCP-Agent header)
+      note: Cart mutation, checkout and orders live only on that surface.
+- target: $.paths['/products.json'].get
+  description: Record the pagination contract, which the storefront does not self-describe.
+  update:
+    x-apievangelist-pagination:
+      style: page-number
+      params: [limit, page]
+      terminator: empty products array
+      total_count: false
+      cursor: false
+      link_header: false
+- target: $.paths['/collections/{handle}/products.json'].get
+  description: Record the pagination contract and the well-known `all` handle.
+  update:
+    x-apievangelist-pagination:
+      style: page-number
+      params: [limit, page]
+      terminator: empty products array
+    x-apievangelist-note: The `all` handle returns the full catalog.
+- target: $.paths['/cart.js'].get
+  description: Flag the session-identity model, which differs from the UCP cart.
+  update:
+    x-apievangelist-identity:
+      scope: browser session cookie
+      anonymous_behavior: returns a new empty cart
+      note: >-
+        Not the same object as a UCP cart, which is agent-owned and addressed by id. See
+        mcp/brooklinen-tool-crosswalk.yml.
+- target: $.paths['/products/{handle}.json'].get
+  description: Note that variant prices are decimal strings, a common integration trap.
+  update:
+    x-apievangelist-note: >-
+      Variant `price` and `compare_at_price` are decimal strings (e.g. "159.00"), not integer minor units.
+      Cart totals on /cart.js, by contrast, are integer minor units.
+- target: $.components.schemas.Product
+  description: Record the addressing key used across the whole surface.
+  update:
+    x-apievangelist-identifier:
+      primary: id
+      addressable_by: handle
+      note: Every other storefront path addresses products by `handle`, not `id`.
+- target: $.components.schemas.Variant
+  description: Record how the positional option fields bind to the product option axes.
+  update:
+    x-apievangelist-note: >-
+      option1/option2/option3 correspond positionally to Product.options[].name; read Product.options to
+      interpret them.

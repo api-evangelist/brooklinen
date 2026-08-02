@@ -1,0 +1,63 @@
+generated: '2026-08-02'
+method: searched
+host: https://www.brooklinen.com
+documents:
+- path: /.well-known/ucp
+  description: Universal Commerce Protocol merchant discovery profile (versions, services, capabilities, payment handlers).
+  status: 200
+  content_type: application/json; charset=utf-8
+  file: brooklinen-ucp.json
+- path: /.well-known/oauth-authorization-server
+  description: RFC 8414 OAuth 2.0 authorization server metadata for the Shopify customer account issuer.
+  status: 200
+  content_type: application/json; charset=utf-8
+  file: brooklinen-oauth-authorization-server.json
+- path: /.well-known/oauth-protected-resource
+  description: RFC 9728 OAuth 2.0 protected resource metadata naming the authorization servers for this store.
+  status: 200
+  content_type: application/json; charset=utf-8
+  file: brooklinen-oauth-protected-resource.json
+- path: /.well-known/security.txt
+  description: RFC 9116 security contact file.
+  status: 404
+- path: /.well-known/openid-configuration
+  description: OIDC discovery.
+  status: 404
+  note: >-
+    Not served at the store origin. OIDC-shaped metadata (issuer, jwks_uri, id_token signing algs, claims) is
+    present in the oauth-authorization-server document above.
+- path: /.well-known/api-catalog
+  description: RFC 9727 API catalog.
+  status: 404
+- path: /.well-known/ai-plugin.json
+  description: Legacy OpenAI plugin manifest.
+  status: 404
+- path: /.well-known/agent-card.json
+  description: A2A 1.0.0 agent card.
+  status: 404
+- path: /.well-known/agent.json
+  description: Pre-0.3 legacy A2A agent card path.
+  status: 404
+related:
+- path: /agents.md
+  description: Canonical agent instruction document; listed in robots.txt and sitemap_agentic_discovery.xml.
+  status: 200
+  content_type: text/markdown; charset=utf-8
+  file: ../skills/brooklinen-agents.md
+- path: /llms.txt
+  description: Mirror of /agents.md.
+  status: 200
+  content_type: text/markdown; charset=utf-8
+  file: ../llms/brooklinen-llms.txt
+- path: /sitemap_agentic_discovery.xml
+  description: Agent discovery sitemap; contains a single entry pointing at /agents.md.
+  status: 200
+  content_type: application/xml; charset=utf-8
+other_hosts:
+- host: https://brooklinen2.myshopify.com
+  note: Canonical Shopify origin named inside the UCP profile.
+  probes:
+  - {path: /.well-known/agent-card.json, status: 404}
+x-evidence:
+  fetched: '2026-08-02'
+  method: HTTP GET, following redirects

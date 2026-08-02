@@ -1,0 +1,49 @@
+generated: '2026-08-02'
+method: probed
+source: https://www.brooklinen.com/.well-known/oauth-authorization-server
+docs: https://shopify.dev/docs/api/customer
+summary: >-
+  Brooklinen serves RFC 8414 OAuth 2.0 authorization server metadata at its store origin, pointing at the
+  Shopify customer account issuer for shop 9517126 and fronted on account.brooklinen.com. Four scopes are
+  advertised. These govern customer account access — including the Customer Account MCP API — not a developer
+  API program; Brooklinen operates no partner/developer OAuth application surface of its own.
+issuer: https://shopify.com/authentication/9517126
+schemes:
+- name: shopify-customer-account-oauth2
+  source: https://www.brooklinen.com/.well-known/oauth-authorization-server
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://account.brooklinen.com/authentication/oauth/authorize
+    tokenUrl: https://account.brooklinen.com/authentication/oauth/token
+    pkce: S256
+scopes:
+- scope: openid
+  description: Request an OpenID Connect ID token identifying the customer.
+  flows: [authorizationCode]
+  sources: [https://www.brooklinen.com/.well-known/oauth-authorization-server]
+- scope: email
+  description: Access the customer's email address and its verification status.
+  flows: [authorizationCode]
+  sources: [https://www.brooklinen.com/.well-known/oauth-authorization-server]
+- scope: customer-account-api:full
+  description: >-
+    Full access to the Shopify Customer Account API for this shop — the authenticated customer's profile,
+    addresses, orders, subscriptions and payment methods.
+  flows: [authorizationCode]
+  sources: [https://www.brooklinen.com/.well-known/oauth-authorization-server]
+- scope: customer-account-mcp-api:full
+  description: >-
+    Full access to the Customer Account MCP API for this shop — the authenticated, customer-scoped agent
+    surface, distinct from the anonymous storefront UCP/MCP endpoint at /api/ucp/mcp.
+  flows: [authorizationCode]
+  sources: [https://www.brooklinen.com/.well-known/oauth-authorization-server]
+notes:
+- No scope-by-scope reference page is published by Brooklinen; scope semantics follow Shopify's Customer
+  Account API documentation.
+- The storefront UCP/MCP endpoint at /api/ucp/mcp is gated by agent identity (UCP agent profile), not by
+  OAuth scope. See authentication/brooklinen-authentication.yml.
+x-evidence:
+  fetched: '2026-08-02'
+  url: https://www.brooklinen.com/.well-known/oauth-authorization-server
+  http_status: 200
+  content_type: application/json; charset=utf-8

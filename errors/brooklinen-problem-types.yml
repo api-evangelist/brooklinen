@@ -1,0 +1,90 @@
+generated: '2026-08-02'
+method: derived
+source:
+- openapi/brooklinen-storefront-openapi.yml
+- https://www.brooklinen.com/api/ucp/mcp
+- https://ucp.dev/2026-04-08/schemas/shopping/types/error_response.json
+format: jsonrpc
+note: >-
+  Brooklinen does not use RFC 9457 problem+json. Two error models are in play: JSON-RPC 2.0 error objects on
+  the UCP/MCP endpoint (with a UCP-specific `data` payload), and bare HTTP status codes on the read-only
+  storefront JSON surface. Entries below are either observed live on 2026-08-02 or read from the UCP shopping
+  error schema Brooklinen's own discovery profile references. No error registry is published by Brooklinen.
+envelopes:
+- id: jsonrpc-error
+  applies_to: https://www.brooklinen.com/api/ucp/mcp
+  fields: [jsonrpc, id, error.code, error.message, error.data]
+  observed: true
+- id: ucp-shopping-error-response
+  applies_to: https://www.brooklinen.com/api/ucp/mcp
+  schema: https://ucp.dev/2026-04-08/schemas/shopping/types/error_response.json
+  fields: [ucp, messages, continue_url]
+  required: [ucp, messages]
+  description: >-
+    Generic error response returned when business logic prevents resource creation or retrieval. `ucp.status`
+    MUST be "error"; `messages[]` (minItems 1) each conform to the UCP message schema (error / warning / info
+    variants); `continue_url` carries a buyer-handoff or session-recovery URL.
+  observed: false
+  note: Schema referenced by the merchant profile; not exercised, since tool invocation is agent-profile gated.
+problems:
+- id: ucp-discovery-failed
+  transport: jsonrpc
+  code: -32001
+  http_status: 422
+  title: UCP discovery failed
+  data_code: invalid_profile_url
+  detail: 'Unable to fetch agent profile: Missing profile uri'
+  remediation: >-
+    Publish a UCP agent profile document for the calling agent and pass its URI as `meta.ucp-agent.profile`
+    (HTTP `UCP-Agent` header). The merchant fetches and validates this document before serving tools/list or
+    any tool call.
+  continue_url: https://brooklinen2.myshopify.com/
+  source_operation: https://www.brooklinen.com/api/ucp/mcp#tools/list
+  observed: true
+  x-evidence:
+    fetched: '2026-08-02'
+    http_status: 422
+    content_type: application/json; charset=utf-8
+- id: not-acceptable
+  transport: http
+  status: 406
+  title: Not Acceptable
+  detail: >-
+    Returned when a malformed UCP-Agent header is sent to the MCP endpoint, and on
+    /account/login for a non-browser Accept profile.
+  remediation: Send a well-formed UCP-Agent header and standard browser-equivalent Accept headers.
+  observed: true
+- id: not-found
+  transport: http
+  status: 404
+  title: Not Found
+  detail: >-
+    Returned for unknown product/collection handles and for unserved well-known paths
+    (/.well-known/security.txt, /.well-known/agent-card.json, /.well-known/agent.json,
+    /.well-known/openid-configuration, /.well-known/api-catalog, /.well-known/ai-plugin.json). Body is HTML,
+    not a structured error.
+  source_operation: openapi/brooklinen-storefront-openapi.yml#getProduct
+  observed: true
+- id: bad-request
+  transport: http
+  status: 400
+  title: Bad Request
+  detail: >-
+    Shopify sub-sitemaps require their `from`/`to` query parameters; requesting
+    /sitemap_pages_1.xml without them returns 400.
+  remediation: Follow sub-sitemap URLs verbatim from /sitemap.xml rather than constructing them.
+  observed: true
+- id: rate-limited
+  transport: http
+  status: 429
+  title: Too Many Requests
+  detail: >-
+    The MCP endpoint is rate-limited per IP. No quota, Retry-After or reset headers are documented.
+  remediation: Back off exponentially on 429, per https://www.brooklinen.com/agents.md.
+  observed: false
+  source: https://www.brooklinen.com/agents.md
+gaps:
+- No published error-code registry or error reference page.
+- No RFC 9457 problem+json on either surface.
+- No documented rate-limit headers (limit / remaining / reset / Retry-After).
+- UCP business-error message codes are defined in ucp.dev schemas, not enumerated by Brooklinen.
