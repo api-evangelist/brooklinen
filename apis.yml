@@ -52,7 +52,7 @@ apis:
   properties:
   - type: MCPServer
     url: mcp/brooklinen-mcp.yml
-  - type: MCP
+  - type: MCPServer
     url: https://www.brooklinen.com/api/ucp/mcp
   - type: ToolCrosswalk
     url: mcp/brooklinen-tool-crosswalk.yml
