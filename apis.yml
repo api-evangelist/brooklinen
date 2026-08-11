@@ -34,12 +34,12 @@ tags:
 apis:
 - name: Brooklinen UCP / MCP Agentic Commerce API
   description: >-
-    Live Universal Commerce Protocol (UCP) endpoint exposed over MCP JSON-RPC at
-    https://www.brooklinen.com/api/ucp/mcp, advertised by the store's own /agents.md, /robots.txt and
-    /.well-known/ucp discovery profile. Provides agent-driven catalog search and lookup, cart management,
-    checkout creation/update/completion and order retrieval against the Brooklinen storefront. Requires a
-    resolvable UCP agent profile (meta.ucp-agent.profile / UCP-Agent header) — anonymous tools/list returns
-    JSON-RPC error -32001 invalid_profile_url. Payment completion requires explicit human buyer approval.
+    Live Universal Commerce Protocol (UCP) endpoint exposed over MCP JSON-RPC at https://www.brooklinen.com/api/ucp/mcp,
+    advertised by the store's own /agents.md, /robots.txt and /.well-known/ucp discovery profile. Provides
+    agent-driven catalog search and lookup, cart management, checkout creation/update/completion and order
+    retrieval against the Brooklinen storefront. Requires a resolvable UCP agent profile (meta.ucp-agent.profile
+    / UCP-Agent header) — anonymous tools/list returns JSON-RPC error -32001 invalid_profile_url. Payment
+    completion requires explicit human buyer approval.
   humanURL: https://www.brooklinen.com/agents.md
   baseURL: https://www.brooklinen.com/api/ucp/mcp
   tags:
@@ -68,25 +68,80 @@ apis:
     url: conventions/brooklinen-conventions.yml
   - type: ErrorCatalog
     url: errors/brooklinen-problem-types.yml
-- name: Brooklinen Shopify Storefront JSON API
-  description: >-
-    Read-only, unauthenticated JSON endpoints over the Brooklinen Shopify storefront, documented by the store
-    itself in /agents.md for agents that only need to read store data without transacting. Covers the full
-    product list, per-product detail, per-collection product lists, predictive search suggestions and the
-    session cart. Every operation captured here was probed live and returned HTTP 200.
+- aid: brooklinen:brooklinen-cart-api
+  name: Brooklinen Cart API
+  description: Read-only view of the current session cart.
   humanURL: https://www.brooklinen.com/agents.md
-  baseURL: https://www.brooklinen.com/
+  baseURL: https://www.brooklinen.com/api/ucp/mcp
   tags:
-  - ecommerce
-  - catalog
-  - shopify
-  - retail
-  - product-data
+  - Cart
   properties:
   - type: OpenAPI
-    url: openapi/brooklinen-storefront-openapi.yml
-  - type: Overlay
-    url: overlays/brooklinen-storefront-overlay.yaml
+    url: openapi/brooklinen-cart-api-openapi.yml
+  - type: Documentation
+    url: https://www.brooklinen.com/agents.md
+  - type: DataModel
+    url: data-model/brooklinen-data-model.yml
+  - type: ErrorCatalog
+    url: errors/brooklinen-problem-types.yml
+- aid: brooklinen:brooklinen-collections-api
+  name: Brooklinen Collections API
+  description: Products grouped into merchandising collections.
+  humanURL: https://www.brooklinen.com/agents.md
+  baseURL: https://www.brooklinen.com/api/ucp/mcp
+  tags:
+  - Collections
+  properties:
+  - type: OpenAPI
+    url: openapi/brooklinen-collections-api-openapi.yml
+  - type: Documentation
+    url: https://www.brooklinen.com/agents.md
+  - type: DataModel
+    url: data-model/brooklinen-data-model.yml
+  - type: ErrorCatalog
+    url: errors/brooklinen-problem-types.yml
+- aid: brooklinen:brooklinen-discovery-api
+  name: Brooklinen Discovery API
+  description: Sitemaps and agent discovery documents.
+  humanURL: https://www.brooklinen.com/agents.md
+  baseURL: https://www.brooklinen.com/api/ucp/mcp
+  tags:
+  - Discovery
+  properties:
+  - type: OpenAPI
+    url: openapi/brooklinen-discovery-api-openapi.yml
+  - type: Documentation
+    url: https://www.brooklinen.com/agents.md
+  - type: DataModel
+    url: data-model/brooklinen-data-model.yml
+  - type: ErrorCatalog
+    url: errors/brooklinen-problem-types.yml
+- aid: brooklinen:brooklinen-products-api
+  name: Brooklinen Products API
+  description: Product catalog listing and detail.
+  humanURL: https://www.brooklinen.com/agents.md
+  baseURL: https://www.brooklinen.com/api/ucp/mcp
+  tags:
+  - Products
+  properties:
+  - type: OpenAPI
+    url: openapi/brooklinen-products-api-openapi.yml
+  - type: Documentation
+    url: https://www.brooklinen.com/agents.md
+  - type: DataModel
+    url: data-model/brooklinen-data-model.yml
+  - type: ErrorCatalog
+    url: errors/brooklinen-problem-types.yml
+- aid: brooklinen:brooklinen-search-api
+  name: Brooklinen Search API
+  description: Predictive storefront search.
+  humanURL: https://www.brooklinen.com/agents.md
+  baseURL: https://www.brooklinen.com/api/ucp/mcp
+  tags:
+  - Search
+  properties:
+  - type: OpenAPI
+    url: openapi/brooklinen-search-api-openapi.yml
   - type: Documentation
     url: https://www.brooklinen.com/agents.md
   - type: DataModel
