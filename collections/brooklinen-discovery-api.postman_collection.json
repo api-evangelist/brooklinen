@@ -1,0 +1,244 @@
+{
+  "item": [
+    {
+      "id": "0a4cbb48-a661-4178-acfe-d35aff9d0c34",
+      "name": "Discovery",
+      "description": {
+        "content": "Sitemaps and agent discovery documents.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "a4f961f6-6e97-4724-a1ac-61ba65625324",
+          "name": "Get the store's agent instruction document",
+          "request": {
+            "name": "Get the store's agent instruction document",
+            "description": {
+              "content": "The canonical agent-facing description of the store, listed in /robots.txt and in /sitemap_agentic_discovery.xml. Mirrored at /llms.txt.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "agents.md"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "text/markdown"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e88e2fe4-3938-4066-8360-4a8fa842e090",
+              "name": "Agent instructions in Markdown.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "agents.md"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "text/markdown"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/markdown"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1aebcccf-0569-4664-b481-b8f7d94948ad",
+          "name": "Get the UCP merchant discovery profile",
+          "request": {
+            "name": "Get the UCP merchant discovery profile",
+            "description": {
+              "content": "Returns the store's Universal Commerce Protocol merchant profile — supported protocol versions, service endpoints (including the MCP endpoint), negotiated capabilities and payment handlers.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                ".well-known",
+                "ucp"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "5ab51dd1-f6d7-48c1-b597-a010099f0547",
+              "name": "The UCP merchant profile.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ".well-known",
+                    "ucp"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5585958a-1476-4d82-8ae7-bf129dee76a1",
+          "name": "Get the sitemap index",
+          "request": {
+            "name": "Get the sitemap index",
+            "description": {
+              "content": "Parent sitemap linking to the agentic discovery, product, page, collection and blog sitemaps.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "sitemap.xml"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/xml"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "f120ba24-c70e-45c4-b226-afd58d07193c",
+              "name": "Sitemap index XML.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sitemap.xml"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/xml"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/xml"
+                }
+              ],
+              "body": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<element>(string)</element>",
+              "cookie": [],
+              "_postman_previewlanguage": "xml"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://www.brooklinen.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "b9298958-e8b4-47db-a439-bf95f6a1d577",
+    "name": "Brooklinen Shopify Storefront JSON Discovery API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Unauthenticated, read-only JSON endpoints over the Brooklinen storefront at https://www.brooklinen.com. Brooklinen documents this surface itself, in the \"Read-Only Browsing (No Authentication Required)\" section of https://www.brooklinen.com/agents.md (mirrored at /llms.txt), for agents that need to read store data without transacting.\n\nNOT A PROVIDER-PUBLISHED SPEC. Brooklinen publishes no OpenAPI document. This description was generated by the API Evangelist enrichment pipeline from (a) the endpoint list Brooklinen publishes in /agents.md and (b) live probes of each endpoint on 2026-08-02. Every path below returned HTTP 200 when probed and every schema property below was observed in a real response body — nothing here is invented. Per-operation `x-evidence` records the probe. For transactional operations (cart, checkout, order) see the UCP/MCP surface at https://www.brooklinen.com/api/ucp/mcp, described in mcp/brooklinen-mcp.yml.\n\nContact Support:\n Name: Brooklinen",
+      "type": "text/plain"
+    }
+  }
+}

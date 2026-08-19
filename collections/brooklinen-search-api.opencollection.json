@@ -1,0 +1,43 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Brooklinen Shopify Storefront JSON Search API",
+    "version": "2026-08-02"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Search",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Predictive search suggestions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.brooklinen.com/search/suggest.json",
+            "params": [
+              {
+                "name": "q",
+                "value": "sheets",
+                "type": "query",
+                "description": "The search query."
+              },
+              {
+                "name": "resources[type]",
+                "value": "product",
+                "type": "query",
+                "description": "Comma-separated resource types to search (e.g. `product`, `collection`, `page`, `article`)."
+              }
+            ]
+          },
+          "docs": "Returns predictive search results for a query. Brooklinen's /agents.md documents storefront search as `GET /search?q={query}&type=product`, which renders HTML; this JSON variant was probed live and returns structured product results."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

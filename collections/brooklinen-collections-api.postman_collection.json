@@ -1,0 +1,240 @@
+{
+  "item": [
+    {
+      "id": "676b4ea3-82f0-4562-8626-7ce08242f827",
+      "name": "Collections",
+      "description": {
+        "content": "Products grouped into merchandising collections.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "927e8cd2-4cc7-4842-ba9d-360fecda6653",
+          "name": "List products in a collection",
+          "request": {
+            "name": "List products in a collection",
+            "description": {
+              "content": "Returns the published products in a merchandising collection. The `all` handle returns the full catalog.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "collections",
+                ":handle",
+                "products.json"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "Number of products to return per page."
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "<integer>",
+                  "description": "1-indexed page number."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "handle",
+                  "description": "(Required) The URL handle of the resource."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "8f3d2acf-6858-4d03-99f3-f089fe893eba",
+              "name": "A page of products in the collection.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "collections",
+                    ":handle",
+                    "products.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "1"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "handle",
+                      "description": "(Required) The URL handle of the resource."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"products\": [\n    {\n      \"id\": 3653,\n      \"title\": \"string\",\n      \"handle\": \"string\",\n      \"body_html\": \"string\",\n      \"published_at\": \"1953-03-04T00:21:58.801Z\",\n      \"created_at\": \"1951-08-05T12:34:12.109Z\",\n      \"updated_at\": \"1981-03-29T07:22:46.654Z\",\n      \"vendor\": \"string\",\n      \"product_type\": \"string\",\n      \"tags\": [\n        \"string\",\n        \"string\"\n      ],\n      \"variants\": [\n        {\n          \"id\": 7894,\n          \"product_id\": 2570,\n          \"title\": \"string\",\n          \"option1\": \"string\",\n          \"option2\": \"string\",\n          \"option3\": \"string\",\n          \"sku\": null,\n          \"price\": \"string\",\n          \"compare_at_price\": \"string\",\n          \"available\": true,\n          \"requires_shipping\": true,\n          \"taxable\": true,\n          \"grams\": 198,\n          \"position\": 8950,\n          \"featured_image\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"product_id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"variant_ids\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"src\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"width\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"height\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"position\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"created_at\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"updated_at\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"created_at\": \"1989-04-17T21:48:27.052Z\",\n          \"updated_at\": \"1998-07-19T13:35:00.602Z\"\n        },\n        {\n          \"id\": 2574,\n          \"product_id\": 4404,\n          \"title\": \"string\",\n          \"option1\": \"string\",\n          \"option2\": \"string\",\n          \"option3\": \"string\",\n          \"sku\": null,\n          \"price\": \"string\",\n          \"compare_at_price\": null,\n          \"available\": true,\n          \"requires_shipping\": true,\n          \"taxable\": false,\n          \"grams\": 4770,\n          \"position\": 5927,\n          \"featured_image\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"product_id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"variant_ids\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"src\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"width\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"height\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"position\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"created_at\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"updated_at\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"created_at\": \"1995-10-13T11:18:48.964Z\",\n          \"updated_at\": \"1969-04-18T20:13:59.050Z\"\n        }\n      ],\n      \"images\": [\n        {\n          \"id\": 7662,\n          \"product_id\": 9851,\n          \"variant_ids\": [\n            282,\n            899\n          ],\n          \"src\": \"https://LeOoWOJcQdmPVyXyojdl.tiafZI5XET1l1tx\",\n          \"width\": 7091,\n          \"height\": 6193,\n          \"position\": 2332,\n          \"created_at\": \"1967-06-27T18:58:39.682Z\",\n          \"updated_at\": \"2013-03-01T17:27:56.938Z\"\n        },\n        {\n          \"id\": 8030,\n          \"product_id\": 7762,\n          \"variant_ids\": [\n            7440,\n            2192\n          ],\n          \"src\": \"http://mbowXU.brwyN-iwd1b7VOuI9rRBAh4fl.rQuZVtKAO4hc4JM9RSQgxF\",\n          \"width\": 148,\n          \"height\": 9417,\n          \"position\": 9623,\n          \"created_at\": \"1987-01-24T03:26:32.649Z\",\n          \"updated_at\": \"1969-08-17T10:50:19.253Z\"\n        }\n      ],\n      \"options\": [\n        {\n          \"name\": \"string\",\n          \"position\": 8134,\n          \"values\": [\n            \"string\",\n            \"string\"\n          ]\n        },\n        {\n          \"name\": \"string\",\n          \"position\": 4497,\n          \"values\": [\n            \"string\",\n            \"string\"\n          ]\n        }\n      ]\n    },\n    {\n      \"id\": 2385,\n      \"title\": \"string\",\n      \"handle\": \"string\",\n      \"body_html\": \"string\",\n      \"published_at\": \"2008-04-10T21:45:10.439Z\",\n      \"created_at\": \"1984-04-08T07:38:20.269Z\",\n      \"updated_at\": \"2024-05-04T11:26:56.593Z\",\n      \"vendor\": \"string\",\n      \"product_type\": \"string\",\n      \"tags\": [\n        \"string\",\n        \"string\"\n      ],\n      \"variants\": [\n        {\n          \"id\": 8081,\n          \"product_id\": 4357,\n          \"title\": \"string\",\n          \"option1\": \"string\",\n          \"option2\": \"string\",\n          \"option3\": null,\n          \"sku\": null,\n          \"price\": \"string\",\n          \"compare_at_price\": \"string\",\n          \"available\": false,\n          \"requires_shipping\": true,\n          \"taxable\": true,\n          \"grams\": 7220,\n          \"position\": 8703,\n          \"featured_image\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"product_id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"variant_ids\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"src\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"width\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"height\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"position\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"created_at\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"updated_at\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"created_at\": \"1964-07-06T20:09:41.855Z\",\n          \"updated_at\": \"2014-02-07T07:58:58.300Z\"\n        },\n        {\n          \"id\": 1173,\n          \"product_id\": 7859,\n          \"title\": \"string\",\n          \"option1\": \"string\",\n          \"option2\": \"string\",\n          \"option3\": null,\n          \"sku\": \"string\",\n          \"price\": \"string\",\n          \"compare_at_price\": \"string\",\n          \"available\": false,\n          \"requires_shipping\": false,\n          \"taxable\": true,\n          \"grams\": 4353,\n          \"position\": 3708,\n          \"featured_image\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"product_id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"variant_ids\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"src\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"width\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"height\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"position\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"created_at\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"updated_at\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"created_at\": \"1998-11-13T07:46:48.803Z\",\n          \"updated_at\": \"1993-02-06T22:02:59.307Z\"\n        }\n      ],\n      \"images\": [\n        {\n          \"id\": 242,\n          \"product_id\": 8919,\n          \"variant_ids\": [\n            2248,\n            1045\n          ],\n          \"src\": \"http://BxdLDCsDPNtOtKWUotwvU.pyua27JyAQWgWnMZlPlrwAGo3K+XM+siuzAdmV6huivGZuBppW2WmHsTBh7HWV2veCuqMbnZqYQ3Lfu.OQe+SNO\",\n          \"width\": 1646,\n          \"height\": 1045,\n          \"position\": 3310,\n          \"created_at\": \"1968-06-26T06:26:56.412Z\",\n          \"updated_at\": \"2007-09-08T20:58:55.217Z\"\n        },\n        {\n          \"id\": 9606,\n          \"product_id\": 4135,\n          \"variant_ids\": [\n            8945,\n            4531\n          ],\n          \"src\": \"http://kUJpypbwSfNPelpleVYrXieNkiWFzhiA.adni13JCRacta6aZFJ7vUZPOqFBhitLqgopWJ4XVRg4\",\n          \"width\": 2891,\n          \"height\": 946,\n          \"position\": 5461,\n          \"created_at\": \"1998-11-24T19:49:07.700Z\",\n          \"updated_at\": \"2007-11-28T09:41:24.215Z\"\n        }\n      ],\n      \"options\": [\n        {\n          \"name\": \"string\",\n          \"position\": 3006,\n          \"values\": [\n            \"string\",\n            \"string\"\n          ]\n        },\n        {\n          \"name\": \"string\",\n          \"position\": 1494,\n          \"values\": [\n            \"string\",\n            \"string\"\n          ]\n        }\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "dc20f298-13d7-4b1f-b072-42f6863a2ef9",
+              "name": "The requested resource does not exist.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "collections",
+                    ":handle",
+                    "products.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "1"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "handle",
+                      "description": "(Required) The URL handle of the resource."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "ee27bb83-801f-4eaf-afe9-a8979922a9d3",
+              "name": "Too many requests. Brooklinen's /agents.md instructs agents to back off on 429 responses.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "collections",
+                    ":handle",
+                    "products.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "1"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "handle",
+                      "description": "(Required) The URL handle of the resource."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://www.brooklinen.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "a7a87c96-8915-4f17-a51d-82d225c1d6dd",
+    "name": "Brooklinen Shopify Storefront JSON Collections API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Unauthenticated, read-only JSON endpoints over the Brooklinen storefront at https://www.brooklinen.com. Brooklinen documents this surface itself, in the \"Read-Only Browsing (No Authentication Required)\" section of https://www.brooklinen.com/agents.md (mirrored at /llms.txt), for agents that need to read store data without transacting.\n\nNOT A PROVIDER-PUBLISHED SPEC. Brooklinen publishes no OpenAPI document. This description was generated by the API Evangelist enrichment pipeline from (a) the endpoint list Brooklinen publishes in /agents.md and (b) live probes of each endpoint on 2026-08-02. Every path below returned HTTP 200 when probed and every schema property below was observed in a real response body — nothing here is invented. Per-operation `x-evidence` records the probe. For transactional operations (cart, checkout, order) see the UCP/MCP surface at https://www.brooklinen.com/api/ucp/mcp, described in mcp/brooklinen-mcp.yml.\n\nContact Support:\n Name: Brooklinen",
+      "type": "text/plain"
+    }
+  }
+}

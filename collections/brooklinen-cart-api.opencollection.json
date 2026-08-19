@@ -1,0 +1,29 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Brooklinen Shopify Storefront JSON Cart API",
+    "version": "2026-08-02"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Cart",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get the current session cart",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.brooklinen.com/cart.js"
+          },
+          "docs": "Returns the cart bound to the caller's session cookie. Anonymous callers receive a new, empty cart. Transactional cart and checkout operations are on the UCP/MCP surface, not here."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

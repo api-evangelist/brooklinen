@@ -1,0 +1,62 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Brooklinen Shopify Storefront JSON Products API",
+    "version": "2026-08-02"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Products",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List products",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.brooklinen.com/products.json",
+            "params": [
+              {
+                "name": "limit",
+                "value": "1",
+                "type": "query",
+                "description": "Number of products to return per page."
+              },
+              {
+                "name": "page",
+                "value": "1",
+                "type": "query",
+                "description": "1-indexed page number."
+              }
+            ]
+          },
+          "docs": "Returns the store's published products with their variants, images and options. Paginated with `limit` and `page`."
+        },
+        {
+          "info": {
+            "name": "Get a product by handle",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.brooklinen.com/products/:handle.json",
+            "params": [
+              {
+                "name": "handle",
+                "value": "dreamweave-waffle-robe-last-call",
+                "type": "path",
+                "description": "The URL handle of the resource."
+              }
+            ]
+          },
+          "docs": "Returns a single published product, addressed by its URL handle."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

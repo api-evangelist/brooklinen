@@ -1,0 +1,51 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Brooklinen Shopify Storefront JSON Discovery API",
+    "version": "2026-08-02"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Discovery",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get the store's agent instruction document",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.brooklinen.com/agents.md"
+          },
+          "docs": "The canonical agent-facing description of the store, listed in /robots.txt and in /sitemap_agentic_discovery.xml. Mirrored at /llms.txt."
+        },
+        {
+          "info": {
+            "name": "Get the UCP merchant discovery profile",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.brooklinen.com/.well-known/ucp"
+          },
+          "docs": "Returns the store's Universal Commerce Protocol merchant profile — supported protocol versions, service endpoints (including the MCP endpoint), negotiated capabilities and payment handlers."
+        },
+        {
+          "info": {
+            "name": "Get the sitemap index",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.brooklinen.com/sitemap.xml"
+          },
+          "docs": "Parent sitemap linking to the agentic discovery, product, page, collection and blog sitemaps."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

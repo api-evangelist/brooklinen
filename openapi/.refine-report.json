@@ -1,0 +1,29 @@
+{
+  "provider": "brooklinen",
+  "sources": [
+    "brooklinen-cart-api-openapi.yml",
+    "brooklinen-collections-api-openapi.yml",
+    "brooklinen-discovery-api-openapi.yml",
+    "brooklinen-products-api-openapi.yml",
+    "brooklinen-search-api-openapi.yml"
+  ],
+  "outputs": [
+    "brooklinen-cart-api-openapi.yml",
+    "brooklinen-collections-api-openapi.yml",
+    "brooklinen-discovery-api-openapi.yml",
+    "brooklinen-products-api-openapi.yml",
+    "brooklinen-search-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [
+    "brooklinen-cart-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "brooklinen-collections-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "brooklinen-discovery-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "brooklinen-products-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "brooklinen-search-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": []
+}
