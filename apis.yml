@@ -15,7 +15,7 @@ url: https://raw.githubusercontent.com/api-evangelist/brooklinen/refs/heads/main
 image: https://cdn.shopify.com/s/files/1/0951/7126/files/0126_Shopify_Social_Image.jpg?v=1765839763
 x-type: company
 x-source: harvest:secondary-market
-specificationVersion: '0.20'
+specificationVersion: '0.23'
 created: '2026-08-02'
 modified: '2026-08-02'
 tags:
