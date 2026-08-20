@@ -19,6 +19,19 @@ specificationVersion: '0.23'
 created: '2026-08-02'
 modified: '2026-08-02'
 tags:
+- E-Commerce
+- Retail
+- Direct to Consumer
+- Home Goods
+- Bedding
+- Shopify
+- Agentic Commerce
+- Universal Commerce Protocol
+- MCP
+- agent-native
+- Catalog
+- Checkout
+tags_raw:
 - ecommerce
 - retail
 - direct-to-consumer
@@ -43,6 +56,13 @@ apis:
   humanURL: https://www.brooklinen.com/agents.md
   baseURL: https://www.brooklinen.com/api/ucp/mcp
   tags:
+  - Agentic Commerce
+  - Universal Commerce Protocol
+  - MCP
+  - agent-native
+  - Checkout
+  - Catalog
+  tags_raw:
   - agentic-commerce
   - universal-commerce-protocol
   - mcp
@@ -90,6 +110,8 @@ apis:
   humanURL: https://www.brooklinen.com/agents.md
   baseURL: https://www.brooklinen.com/api/ucp/mcp
   tags:
+  - Collection
+  tags_raw:
   - Collections
   properties:
   - type: OpenAPI
@@ -122,6 +144,8 @@ apis:
   humanURL: https://www.brooklinen.com/agents.md
   baseURL: https://www.brooklinen.com/api/ucp/mcp
   tags:
+  - Product
+  tags_raw:
   - Products
   properties:
   - type: OpenAPI
