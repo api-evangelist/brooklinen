@@ -12,6 +12,18 @@ description: >-
   /.well-known/oauth-protected-resource, and the read-only Shopify storefront JSON endpoints for products,
   collections, search suggestions and cart. Checkout explicitly requires contemporaneous human buyer approval.
 url: https://raw.githubusercontent.com/api-evangelist/brooklinen/refs/heads/main/apis.yml
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 image: https://cdn.shopify.com/s/files/1/0951/7126/files/0126_Shopify_Social_Image.jpg?v=1765839763
 x-type: company
 x-source: harvest:secondary-market
