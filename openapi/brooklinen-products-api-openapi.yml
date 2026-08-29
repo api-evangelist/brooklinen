@@ -78,32 +78,65 @@ paths:
         http_status: 200
         content_type: application/json; charset=utf-8
 components:
+  parameters:
+    Handle:
+      name: handle
+      in: path
+      required: true
+      description: The URL handle of the resource.
+      schema:
+        type: string
+      example: dreamweave-waffle-robe-last-call
+    Page:
+      name: page
+      in: query
+      required: false
+      description: 1-indexed page number.
+      schema:
+        type: integer
+        minimum: 1
+      example: 1
+    Limit:
+      name: limit
+      in: query
+      required: false
+      description: Number of products to return per page.
+      schema:
+        type: integer
+        minimum: 1
+      example: 1
   responses:
-    NotFound:
-      description: The requested resource does not exist.
     RateLimited:
       description: Too many requests. Brooklinen's /agents.md instructs agents to back off on 429 responses.
+    NotFound:
+      description: The requested resource does not exist.
   schemas:
-    Option:
+    Image:
       type: object
       properties:
-        name:
+        id:
+          type: integer
+        product_id:
+          type: integer
+        variant_ids:
+          type: array
+          items:
+            type: integer
+        src:
           type: string
+          format: uri
+        width:
+          type: integer
+        height:
+          type: integer
         position:
           type: integer
-        values:
-          type: array
-          items:
-            type: string
-    ProductList:
-      type: object
-      required:
-      - products
-      properties:
-        products:
-          type: array
-          items:
-            $ref: '#/components/schemas/Product'
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
     Product:
       type: object
       description: A published storefront product. Properties observed in a live /products.json response.
@@ -148,32 +181,15 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Option'
-    Image:
+    ProductList:
       type: object
+      required:
+      - products
       properties:
-        id:
-          type: integer
-        product_id:
-          type: integer
-        variant_ids:
+        products:
           type: array
           items:
-            type: integer
-        src:
-          type: string
-          format: uri
-        width:
-          type: integer
-        height:
-          type: integer
-        position:
-          type: integer
-        created_at:
-          type: string
-          format: date-time
-        updated_at:
-          type: string
-          format: date-time
+            $ref: '#/components/schemas/Product'
     Variant:
       type: object
       description: A purchasable variant of a product.
@@ -227,30 +243,14 @@ components:
         updated_at:
           type: string
           format: date-time
-  parameters:
-    Handle:
-      name: handle
-      in: path
-      required: true
-      description: The URL handle of the resource.
-      schema:
-        type: string
-      example: dreamweave-waffle-robe-last-call
-    Limit:
-      name: limit
-      in: query
-      required: false
-      description: Number of products to return per page.
-      schema:
-        type: integer
-        minimum: 1
-      example: 1
-    Page:
-      name: page
-      in: query
-      required: false
-      description: 1-indexed page number.
-      schema:
-        type: integer
-        minimum: 1
-      example: 1
+    Option:
+      type: object
+      properties:
+        name:
+          type: string
+        position:
+          type: integer
+        values:
+          type: array
+          items:
+            type: string

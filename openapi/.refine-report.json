@@ -18,11 +18,6 @@
   "errors": [],
   "warnings": [],
   "notes": [
-    "brooklinen-cart-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
-    "brooklinen-collections-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
-    "brooklinen-discovery-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
-    "brooklinen-products-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
-    "brooklinen-search-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
     "apis.yml register: already-registered"
   ],
   "skipped": []
