@@ -1,0 +1,26 @@
+slug: brooklinen
+provider: Brooklinen
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Retail & Consumer Goods
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 1
+edges:
+- tag: Products
+  spec_file: brooklinen-products-api-openapi.yml
+  capability_id: BC-2370
+  capability_id_l1: BC-2370
+  capability_name: Product Information Management
+  confidence: 0.7
+  evidence: GET /products.json 'List products'; GET /products/{handle}.json 'Get a product by handle';
+    schemas Product, Variant, Option, Image
+  reason: Read access to the retailer's product records including variants, options and imagery — authoritative
+    product information made available to a channel. L2 left null because the surface spans both item
+    attributes and marketing content.

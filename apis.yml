@@ -190,6 +190,9 @@ maintainers:
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: CapabilityMap
+  url: capabilities/brooklinen-capability-edges.yml
+  name: Brooklinen Business Capability Map
 - type: DomainSecurity
   url: security/brooklinen-domain-security.yml
 - type: Website
