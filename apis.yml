@@ -33,16 +33,16 @@ modified: '2026-08-02'
 tags:
 - E-Commerce
 - Retail
-- direct-to-consumer
-- home-goods
-- bedding
-- shopify
-- agentic-commerce
-- universal-commerce-protocol
+- Direct to Consumer
+- Home Goods
+- Bedding
+- Shopify
+- Agentic Commerce
+- Universal Commerce Protocol
 - MCP
 - agent-native
 - Catalog
-- checkout
+- Checkout
 tags_raw:
 - ecommerce
 - retail
@@ -68,11 +68,11 @@ apis:
   humanURL: https://www.brooklinen.com/agents.md
   baseURL: https://www.brooklinen.com/api/ucp/mcp
   tags:
-  - agentic-commerce
-  - universal-commerce-protocol
+  - Agentic Commerce
+  - Universal Commerce Protocol
   - MCP
   - agent-native
-  - checkout
+  - Checkout
   - Catalog
   tags_raw:
   - agentic-commerce
