@@ -54,7 +54,7 @@ tags:
 - Agentic Commerce
 - Universal Commerce Protocol
 - MCP
-- agent-native
+- Agent-Native
 - Catalog
 - Checkout
 tags_raw:
@@ -85,7 +85,7 @@ apis:
   - Agentic Commerce
   - Universal Commerce Protocol
   - MCP
-  - agent-native
+  - Agent-Native
   - Checkout
   - Catalog
   tags_raw:
@@ -114,90 +114,9 @@ apis:
     url: conventions/brooklinen-conventions.yml
   - type: ErrorCatalog
     url: errors/brooklinen-problem-types.yml
-- aid: brooklinen:brooklinen-cart-api
-  name: Brooklinen Cart API
-  description: Read-only view of the current session cart.
-  humanURL: https://www.brooklinen.com/agents.md
-  baseURL: https://www.brooklinen.com/api/ucp/mcp
-  tags:
-  - Cart
-  properties:
-  - type: OpenAPI
-    url: openapi/brooklinen-cart-api-openapi.yml
-  - type: Documentation
-    url: https://www.brooklinen.com/agents.md
-  - type: DataModel
-    url: data-model/brooklinen-data-model.yml
-  - type: ErrorCatalog
-    url: errors/brooklinen-problem-types.yml
-- aid: brooklinen:brooklinen-collections-api
-  name: Brooklinen Collections API
-  description: Products grouped into merchandising collections.
-  humanURL: https://www.brooklinen.com/agents.md
-  baseURL: https://www.brooklinen.com/api/ucp/mcp
-  tags:
-  - Collection
-  tags_raw:
-  - Collections
-  properties:
-  - type: OpenAPI
-    url: openapi/brooklinen-collections-api-openapi.yml
-  - type: Documentation
-    url: https://www.brooklinen.com/agents.md
-  - type: DataModel
-    url: data-model/brooklinen-data-model.yml
-  - type: ErrorCatalog
-    url: errors/brooklinen-problem-types.yml
-- aid: brooklinen:brooklinen-discovery-api
-  name: Brooklinen Discovery API
-  description: Sitemaps and agent discovery documents.
-  humanURL: https://www.brooklinen.com/agents.md
-  baseURL: https://www.brooklinen.com/api/ucp/mcp
-  tags:
-  - Discovery
-  properties:
-  - type: OpenAPI
-    url: openapi/brooklinen-discovery-api-openapi.yml
-  - type: Documentation
-    url: https://www.brooklinen.com/agents.md
-  - type: DataModel
-    url: data-model/brooklinen-data-model.yml
-  - type: ErrorCatalog
-    url: errors/brooklinen-problem-types.yml
-- aid: brooklinen:brooklinen-products-api
-  name: Brooklinen Products API
-  description: Product catalog listing and detail.
-  humanURL: https://www.brooklinen.com/agents.md
-  baseURL: https://www.brooklinen.com/api/ucp/mcp
-  tags:
-  - Product
-  tags_raw:
-  - Products
-  properties:
-  - type: OpenAPI
-    url: openapi/brooklinen-products-api-openapi.yml
-  - type: Documentation
-    url: https://www.brooklinen.com/agents.md
-  - type: DataModel
-    url: data-model/brooklinen-data-model.yml
-  - type: ErrorCatalog
-    url: errors/brooklinen-problem-types.yml
-- aid: brooklinen:brooklinen-search-api
-  name: Brooklinen Search API
-  description: Predictive storefront search.
-  humanURL: https://www.brooklinen.com/agents.md
-  baseURL: https://www.brooklinen.com/api/ucp/mcp
-  tags:
-  - Search
-  properties:
-  - type: OpenAPI
-    url: openapi/brooklinen-search-api-openapi.yml
-  - type: Documentation
-    url: https://www.brooklinen.com/agents.md
-  - type: DataModel
-    url: data-model/brooklinen-data-model.yml
-  - type: ErrorCatalog
-    url: errors/brooklinen-problem-types.yml
+  x-surface: platform-generated
+  x-platform: shopify
+  x-platform-surface: ucp
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
