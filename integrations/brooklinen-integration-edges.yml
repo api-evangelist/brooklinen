@@ -1,0 +1,16 @@
+generated: '2026-10-12'
+method: none
+source:
+- https://zapier.com/apps/brooklinen/integrations
+- https://n8n.io/integrations/brooklinen/
+- https://composio.dev/toolkits/brooklinen
+- https://monid.ai/tools/brooklinen
+checked:
+- https://composio.dev/toolkits/brooklinen
+- https://monid.ai/tools/brooklinen
+- https://n8n.io/integrations/brooklinen/
+- https://zapier.com/apps/brooklinen/integrations
+summary: null
+marketplace_apps: []
+edges: []
+templates: []
